@@ -14,7 +14,8 @@ class AddValueToManifestsTable extends Migration
     public function up()
     {
         Schema::table('manifests', function (Blueprint $table) {
-            $table->string('value')->after('id');
+            $table->string('key')->after('id');
+            $table->string('value')->after('key');
         });
     }
 
@@ -27,6 +28,7 @@ class AddValueToManifestsTable extends Migration
     {
         Schema::table('manifests', function (Blueprint $table) {
             $table->dropColumn('value');
+            $table->dropColumn('key');
         });
     }
 }
