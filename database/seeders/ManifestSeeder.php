@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use App\Helpers\JsonStackerHelper;
 
 class ManifestSeeder extends Seeder
 {
@@ -19,21 +20,14 @@ class ManifestSeeder extends Seeder
             'http://www.bungie.net/Platform/Destiny2/Manifest/'
         );
 
+        echo "#### Fetching Destiny 2 Manifest #### \n";
+
         if ($request->getStatusCode() == '200') {
             echo "Got a 200 Status Code! \n";
 
-            $body = $request->getBody();
-            $size = $body->getSize();
-
-            echo "Size is ${size} \n";
-
-            $manifest = $body->read($size);
-            $manifest_json = json_decode($manifest, true);
-            $stack = [];
-
-            foreach ($manifest_json as $data) {
-                array_push($stack, $data);
-            }
+            $stacker = new JsonStackerHelper($request);
+            $stack = $stacker->stack();
+            $stack_count = count($stack);
         } else {
             echo "There was an error: {$request->getStatusCode()} \n";
             return;
@@ -85,5 +79,7 @@ class ManifestSeeder extends Seeder
                     ],
             ],
         ]);
+
+        echo " \n";
     }
 }

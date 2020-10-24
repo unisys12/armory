@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use App\Helpers\JsonStackerHelper;
 
 class CollectionSeeder extends Seeder
 {
@@ -21,7 +22,7 @@ class CollectionSeeder extends Seeder
 
         $fullPath = 'https://www.bungie.net' . $collectionsPath->value;
 
-        echo "${fullPath}\n";
+        echo "#### Fetching DestinyCollectibleDefinition #### \n";
 
         $request = Http::withHeaders(['X_API_KEY' => env('BUNGIE_KEY')])->get(
             $fullPath
@@ -32,21 +33,9 @@ class CollectionSeeder extends Seeder
         if ($request->getStatusCode() == '200') {
             echo "Got a 200 Status Code! \n";
 
-            $body = $request->getBody();
-            $size = $body->getSize();
-
-            echo "Size is ${size} \n";
-
-            $data = $body->read($size);
-            $data_json = json_decode($data, true);
-            $stack = [];
-            foreach ($data_json as $data) {
-                array_push($stack, $data);
-            }
-
+            $stacker = new JsonStackerHelper($request);
+            $stack = $stacker->stack();
             $stack_count = count($stack);
-
-            // $insertObject = [];
 
             foreach ($stack as $ref) {
                 DB::table('collections')->insert([
@@ -59,8 +48,7 @@ class CollectionSeeder extends Seeder
             }
 
             echo "Seeded ${stack_count} collections in the database! \n";
-
-            // DB::table('collections')->insert([$insertObject]);
+            echo "\n";
         } else {
             echo $request->getStatusCode();
         }
