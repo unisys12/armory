@@ -20,14 +20,23 @@ class ManifestSeeder extends Seeder
         );
 
         if ($request->getStatusCode() == '200') {
+            echo "Got a 200 Status Code! \n";
+
             $body = $request->getBody();
             $size = $body->getSize();
+
+            echo "Size is ${size} \n";
+
             $manifest = $body->read($size);
             $manifest_json = json_decode($manifest, true);
             $stack = [];
+
             foreach ($manifest_json as $data) {
                 array_push($stack, $data);
             }
+        } else {
+            echo "There was an error: {$request->getStatusCode()} \n";
+            return;
         }
         /**
          * array_keys($stack[0])
@@ -66,6 +75,13 @@ class ManifestSeeder extends Seeder
                 'value' =>
                     $stack[0]['jsonWorldComponentContentPaths']['en'][
                         'DestinyLoreDefinition'
+                    ],
+            ],
+            [
+                'key' => 'DestinyCollectibleDefinition',
+                'value' =>
+                    $stack[0]['jsonWorldComponentContentPaths']['en'][
+                        'DestinyCollectibleDefinition'
                     ],
             ],
         ]);
