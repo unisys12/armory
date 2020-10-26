@@ -18,13 +18,9 @@ class JsonStackerHelper
 
         $data = $body->read($size);
         $data_json = json_decode($data, true);
-        $stack = [];
-        foreach ($data_json as $data) {
-            array_push($stack, $data);
-        }
 
-        if (count($stack) > 0) {
-            return $stack;
+        if ($data_json) {
+            return $data_json;
         } else {
             echo 'No properties or values found in request!';
             return;
