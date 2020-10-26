@@ -43,7 +43,7 @@ DB_USERNAME=homestead
 DB_PASSWORD=secret
 ```
 
-- run the migrations & seeders
+- run the migrations & seeders at the same time
 
 ```shell
 php artisan migrate --seed
