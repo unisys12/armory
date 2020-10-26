@@ -33,7 +33,7 @@ class ManifestSeeder extends Seeder
             return;
         }
         /**
-         * array_keys($stack[0])
+         * array_keys($stack['Response'])
          * returns:
          * array:9 [
          *   0 => "version"
@@ -48,33 +48,33 @@ class ManifestSeeder extends Seeder
          * ]
          */
         DB::table('manifests')->insert([
-            ['key' => 'version', 'value' => $stack[0]['version']],
+            ['key' => 'version', 'value' => $stack['Response']['version']],
             [
                 'key' => 'mobileWorldContentPaths',
-                'value' => $stack[0]['mobileWorldContentPaths']['en'],
+                'value' => $stack['Response']['mobileWorldContentPaths']['en'],
             ],
             [
                 'key' => 'jsonWorldContentPaths',
-                'value' => $stack[0]['jsonWorldContentPaths']['en'],
+                'value' => $stack['Response']['jsonWorldContentPaths']['en'],
             ],
             [
                 'key' => 'DestinyInventoryItemDefinition',
                 'value' =>
-                    $stack[0]['jsonWorldComponentContentPaths']['en'][
+                    $stack['Response']['jsonWorldComponentContentPaths']['en'][
                         'DestinyInventoryItemDefinition'
                     ],
             ],
             [
                 'key' => 'DestinyLoreDefinition',
                 'value' =>
-                    $stack[0]['jsonWorldComponentContentPaths']['en'][
+                    $stack['Response']['jsonWorldComponentContentPaths']['en'][
                         'DestinyLoreDefinition'
                     ],
             ],
             [
                 'key' => 'DestinyCollectibleDefinition',
                 'value' =>
-                    $stack[0]['jsonWorldComponentContentPaths']['en'][
+                    $stack['Response']['jsonWorldComponentContentPaths']['en'][
                         'DestinyCollectibleDefinition'
                     ],
             ],
