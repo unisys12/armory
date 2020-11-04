@@ -45,6 +45,7 @@ class CollectionSeeder extends Seeder
                     'itemHash' => $ref['itemHash'],
                     'hash' => $ref['hash'],
                 ]);
+                echo '.';
             }
 
             echo "Seeded ${stack_count} collections in the database! \n";

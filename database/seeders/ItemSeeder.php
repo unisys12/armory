@@ -52,6 +52,7 @@ class ItemSeeder extends Seeder
                     'seasonHash' => $ref['seasonHash'] ?? '',
                     'hash' => $ref['hash'],
                 ]);
+                echo '.';
             }
 
             echo "Seeded ${stack_count} items in the database! \n";
