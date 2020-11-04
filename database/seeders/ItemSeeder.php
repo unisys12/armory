@@ -54,7 +54,7 @@ class ItemSeeder extends Seeder
                 ]);
                 echo '.';
             }
-
+            echo "\n";
             echo "Seeded ${stack_count} items in the database! \n";
             echo "\n";
         } else {
