@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-class JsonStackerHelper
+class RequestDataHelper
 {
     function __construct($request)
     {

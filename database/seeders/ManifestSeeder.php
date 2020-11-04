@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use App\Helpers\JsonStackerHelper;
+use App\Helpers\RequestDataHelper;
 
 class ManifestSeeder extends Seeder
 {
@@ -25,7 +25,7 @@ class ManifestSeeder extends Seeder
         if ($request->getStatusCode() == '200') {
             echo "Got a 200 Status Code! \n";
 
-            $stacker = new JsonStackerHelper($request);
+            $stacker = new RequestDataHelper($request);
             $stack = $stacker->stack();
             $stack_count = count($stack);
         } else {
