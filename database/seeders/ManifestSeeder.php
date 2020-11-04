@@ -79,7 +79,5 @@ class ManifestSeeder extends Seeder
                     ],
             ],
         ]);
-
-        echo " \n";
     }
 }
