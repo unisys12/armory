@@ -33,35 +33,35 @@ class ItemSeeder extends Seeder
 
             $stacker = new RequestDataHelper($request);
             $stack = $stacker->stack();
-            $stack_count = count($stack);
 
             foreach ($stack as $ref) {
-                DB::table('items')->insert([
-                    'name' => $ref['displayProperties']['name'],
-                    'description' => $ref['displayProperties']['description'],
-                    'iconPath' => $ref['displayProperties']['icon'] ?? '',
-                    'collectibleHash' => $ref['collectibleHash'] ?? '',
-                    'screenshot' => $ref['screenshot'] ?? '',
-                    'itemTypeDisplayName' => $ref['itemTypeDisplayName'] ?? '',
-                    'itemTypeAndTierDisplayName' =>
-                        $ref['itemTypeAndTierDisplayName'] ?? '',
-                    'loreHash' => $ref['loreHash'] ?? '',
-                    'itemType' => $ref['itemType'] ?? '',
-                    'itemSubType' => $ref['itemSubType'] ?? '',
-                    'classType' => $ref['classType'] ?? '',
-                    'seasonHash' => $ref['seasonHash'] ?? '',
-                    'hash' => $ref['hash'],
-                ]);
-                echo '.';
+                if ($ref['displayProperties']['name']) {
+                    DB::table('items')->insert([
+                        'name' => $ref['displayProperties']['name'],
+                        'description' =>
+                            $ref['displayProperties']['description'],
+                        'iconPath' => $ref['displayProperties']['icon'] ?? '',
+                        'collectibleHash' => $ref['collectibleHash'] ?? '',
+                        'screenshot' => $ref['screenshot'] ?? '',
+                        'itemTypeDisplayName' =>
+                            $ref['itemTypeDisplayName'] ?? '',
+                        'itemTypeAndTierDisplayName' =>
+                            $ref['itemTypeAndTierDisplayName'] ?? '',
+                        'loreHash' => $ref['loreHash'] ?? '',
+                        'itemType' => $ref['itemType'] ?? '',
+                        'itemSubType' => $ref['itemSubType'] ?? '',
+                        'classType' => $ref['classType'] ?? '',
+                        'seasonHash' => $ref['seasonHash'] ?? '',
+                        'hash' => $ref['hash'],
+                    ]);
+                    echo '.';
+                }
             }
-            echo "\n";
-            echo "Seeded ${stack_count} items in the database! \n";
-            echo "\n";
+            echo " \n";
+            $item_index = DB::getPdo()->lastInsertId();
+            echo "Seeded ${item_index} items in items table... \n";
         } else {
             echo $request->getStatusCode();
         }
-
-        echo "Seeded ${stack_count} items in items table... \n";
-        echo ' \n';
     }
 }
