@@ -45,9 +45,10 @@ class CollectionSeeder extends Seeder
                 ]);
                 echo '.';
             }
-
-            echo "Seeded ${stack_count} collections in the database! \n";
-            echo "\n";
+            echo " \n";
+            $collection_index = DB::getPdo()->lastInsertId();
+            echo "Seeded ${collection_index} collections in the database! \n";
+            echo " \n";
         } else {
             echo $request->getStatusCode();
         }
